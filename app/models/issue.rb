@@ -32,6 +32,9 @@ class Issue < ActiveRecord::Base
   
   # Automatically set the number
   before_validation :set_default_number, :on => :create
+
+  # The comments associated with the issue.
+  has_many :comments, :as => :commentable, :dependent => :destroy
   
   # Use external IDs for routes instead of IDs.
   def to_param

@@ -33,6 +33,9 @@ class Commit < ActiveRecord::Base
   has_many :commit_parents, :dependent => :destroy, :inverse_of => :commit
   has_many :parents, :through => :commit_parents
 
+  # The comments associated with the commit.
+  has_many :comments, :as => :commentable, :dependent => :destroy
+
   # Commit model for an on-disk commit.
   #
   # Args:

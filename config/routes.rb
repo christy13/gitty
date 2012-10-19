@@ -1,5 +1,7 @@
 Gitty::Application.routes.draw do
 
+  resources :comments
+
   scope '_' do
     authpwn_session
     config_vars
@@ -134,6 +136,15 @@ Gitty::Application.routes.draw do
         :as => :edit_profile_repository_issue
     put 'issues/:issue_number' => 'issues#update'
     delete 'issues/:issue_number' => 'issues#destroy'
+
+    # # Comments # not sure how this will work for commits
+    # scope "issues/:issue_number" do #':commentable_type/:commentable_id' do
+      #resources :comments
+      get 'comments' => 'comments#index', :as => :profile_repository_comments
+      get 'comments/new' => 'comments#new', :as => :new_profile_repository_comment
+      # get 'comments/:comment_id', :as => :profile_repository_comment
+      # get 'comments/:comment_id/edit', :as => :edit_profile_repository_comment
+    # end
         
     # Admin.
     get 'edit' => 'repositories#edit', :as => :edit_profile_repository

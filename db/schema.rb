@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120420051746) do
+ActiveRecord::Schema.define(:version => 20121008174513) do
 
   create_table "acl_entries", :force => true do |t|
     t.string   "role",           :null => false
@@ -42,6 +42,15 @@ ActiveRecord::Schema.define(:version => 20120420051746) do
   end
 
   add_index "branches", ["repository_id", "name"], :name => "index_branches_on_repository_id_and_name", :unique => true
+
+  create_table "comments", :force => true do |t|
+    t.text     "description"
+    t.integer  "author_id",        :null => false
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
 
   create_table "commit_diff_hunks", :force => true do |t|
     t.integer "diff_id",   :null => false
@@ -102,8 +111,8 @@ ActiveRecord::Schema.define(:version => 20120420051746) do
     t.string   "type",       :limit => 32,                     :null => false
     t.string   "name",       :limit => 128
     t.boolean  "verified",                  :default => false, :null => false
-    t.binary   "key"
     t.datetime "updated_at",                                   :null => false
+    t.binary   "key"
   end
 
   add_index "credentials", ["type", "name"], :name => "index_credentials_on_type_and_name", :unique => true
